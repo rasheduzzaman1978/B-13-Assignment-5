@@ -5,22 +5,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- DaisyUI + Tailwindcss cdn -->
+  <!-- DaisyUI + Tailwindcss -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
   <!-- Font awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 
   <title>GitHub Issues Tracker</title>
-  
+
 </head>
 
-<body>
-  <h1 class="text-5xl font-bold text-center text-green-500">GitHub Issues Tracker</h1>
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="container mx-auto">
 
+    <div class="navbar bg-base-200 px-6 shadow-sm">
+
+      <!-- Left Side -->
+      <div class="flex-1">
+        <a class="flex items-center gap-2 text-lg font-semibold">
+          <i class="fa-brands fa-github text-xl"></i>
+          GitHub Issues Tracker
+        </a>
+      </div>
+
+      <!-- Right Side -->
+      <div class="flex items-center gap-3">
+
+        <!-- Search -->
+        <div class="relative">
+
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10"></i>
+
+          <input type="text" placeholder="Search issues..." class="input input-sm input-bordered pl-9 w-56" />
+
+        </div>
+
+        <!-- New Issue Button -->
+        <button class="btn btn-sm btn-primary text-white border-none">
+          + New Issue
+        </button>
+
+      </div>
+
+    </div>
+
+  </nav>
 </body>
 
 </html>
