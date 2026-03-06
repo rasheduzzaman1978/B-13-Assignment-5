@@ -19,46 +19,60 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <title>GitHub Issues Tracker</title>
+  <title>GitHub Tracker | Login</title>
 
 </head>
 
 <body class="bg-gray-100">
-  <!-- Navbar -->
-  <nav class="container mx-auto">
 
-    <div class="navbar bg-base-200 px-6 shadow-sm">
+  <!-- Login form -->
+  <section class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="card w-96 bg-white shadow-xl p-6">
 
-      <!-- Left Side -->
-      <div class="flex-1">
-        <a class="flex items-center gap-2 text-lg font-semibold">
-          <i class="fa-brands fa-github text-xl"></i>
-          GitHub Issues Tracker
-        </a>
+      <!-- Icon -->
+      <div class="text-center mb-4">
+        <i class="fa-brands fa-github text-5xl text-gray-700"></i>
       </div>
 
-      <!-- Right Side -->
-      <div class="flex items-center gap-3">
+      <!-- Title -->
+      <h2 class="text-xl font-bold text-center">GitHub Issues Tracker</h2>
+      <p class="text-center text-gray-500 text-sm mb-4">
+        Sign in to manage your issues
+      </p>
 
-        <!-- Search -->
-        <div class="relative">
+      <!-- Username -->
+      <div class="form-control mb-3">
+        <label class="label text-sm">Username</label>
+        <input id="inputName" type="text" placeholder="Enter Username" class="input input-bordered w-full" />
+        <p class="text-xs text-blue-500 mt-1">Default: admin</p>
+      </div>
 
-          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10"></i>
+      <!-- Password -->
+      <div class="form-control mb-4">
+        <label class="label text-sm">Password</label>
+        <input id="inputPassword" type="password" placeholder="Enter Password" class="input input-bordered w-full" />
+        <p class="text-xs text-blue-500 mt-1">Default: admin123</p>
+      </div>
 
-          <input type="text" placeholder="Search issues..." class="input input-sm input-bordered pl-9 w-56" />
+      <!-- Button -->
+      <button id="signInBtn" class="btn w-full text-white border-none btn-primary">
+        Sign In
+      </button>
 
-        </div>
+      <!-- Divider -->
+      <div class="divider text-xs">OR</div>
 
-        <!-- New Issue Button -->
-        <button class="btn btn-sm btn-primary text-white border-none">
-          + New Issue
-        </button>
-
+      <!-- Demo Credentials -->
+      <div class="bg-gray-100 rounded-lg p-3 text-sm text-center">
+        <p class="font-semibold mb-1">Demo Credentials:</p>
+        <p>Username: <span class="font-semibold">admin</span></p>
+        <p>Password: <span class="font-semibold">admin123</span></p>
       </div>
 
     </div>
+  </section>
 
-  </nav>
+  <script src="./script/login.js"></script>
 </body>
 
 </html>
