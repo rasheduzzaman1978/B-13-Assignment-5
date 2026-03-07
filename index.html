@@ -19,11 +19,11 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <title>GitHub Tracker | Login</title>
+  <title>GitHub Issues Tracker | Login</title>
 
 </head>
 
-<body class="bg-gray-100">
+<body>
 
   <!-- Login form -->
   <section class="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -50,7 +50,13 @@
       <!-- Password -->
       <div class="form-control mb-4">
         <label class="label text-sm">Password</label>
-        <input id="inputPassword" type="password" placeholder="Enter Password" class="input input-bordered w-full" />
+        <input 
+            id="inputPassword" 
+            type="password" 
+            placeholder="Enter Password"
+            autocomplete="new-password"
+            class="input input-bordered w-full"
+          />
         <p class="text-xs text-blue-500 mt-1">Default: admin123</p>
       </div>
 
