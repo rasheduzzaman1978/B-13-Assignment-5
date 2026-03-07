@@ -62,7 +62,7 @@
   </nav>
 
   <!-- Issues Filter Tabs -->
-  <div class="container mx-auto mt-6">
+  <div class="container mx-auto mt-6 px-3">
 
     <div class="flex gap-2 bg-base-200 p-1 rounded-lg w-fit">
 
@@ -125,7 +125,7 @@
 
 </section>
 
-<div class="container mx-auto mt-6">
+<div class="container mx-auto mt-6 px-3">
 
   <!-- Loading spinner -->
   <div id="spinner" class="flex justify-center my-10 hidden">
@@ -137,6 +137,70 @@
 
 </div>
 
+<!-- Modal show -->
+ <dialog id="issueModal" class="modal">
+  <div class="modal-box">
+
+    <!-- Title -->
+    <div class="flex justify-between items-start">
+      <h3 id="modalTitle" class="font-bold text-lg"></h3>
+
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost">✕</button>
+      </form>
+    </div>
+
+    <!-- Issue info -->
+   <p class="text-sm text-gray-500 mt-1 flex items-center gap-2 flex-wrap">
+  
+  <span id="modalStatusBadge"
+        class="badge badge-success badge-sm">
+  </span> •
+
+  <span id="modalIssueId"></span>
+
+  <span id="modalStatusText"></span> by
+
+  <span id="modalAuthor"></span>
+
+  •
+  <span id="modalCreated"></span>
+
+</p>
+
+    <!-- Labels -->
+    <div id="modalLabels" class="flex gap-2 mt-3"></div>
+
+    <!-- Description -->
+    <p id="modalDescription" class="mt-3 text-sm text-gray-600"></p>
+
+    <!-- Bottom section -->
+    <div class="flex justify-between items-center mt-6">
+
+      <!-- Assignee -->
+      <div>
+        <p class="text-xs text-gray-500">Assignee</p>
+        <p id="modalAssignee" class="font-medium"></p>
+      </div>
+
+      <!-- Priority -->
+      <div>
+        <p class="text-xs text-gray-500">Priority</p>
+      <span id="modalPriority"
+        class="badge uppercase text-red-600 bg-red-100">
+      </span>
+      </div>
+    </div>
+
+    <!-- Close button -->
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-primary btn-sm">Close</button>
+      </form>
+    </div>
+
+  </div>
+</dialog>
 
 <script src="./home.js"></script>
 </body>

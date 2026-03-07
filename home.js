@@ -105,7 +105,7 @@ function displayIssues(issues) {
     const div = document.createElement('div');
 
     div.innerHTML = `
-<div class="card bg-white shadow-md border-t-4 ${issue.status === "open" ? "border-green-500" : "border-purple-500"} p-4">
+<div class="card bg-white shadow-md border-t-4 ${issue.status === "open" ? "border-green-500" : "border-purple-500"} p-4 h-full">
 
   <div class="flex justify-between items-center mb-2">
   <div class="${issue.status === "open" ? "text-green-600" : "text-purple-600"}">
@@ -155,6 +155,11 @@ function displayIssues(issues) {
 
 </div>
 `;
+      // Modal show function 
+    div.addEventListener('click', () => {
+      openIssueModal(issue.id);
+    });
+
 
     container.appendChild(div);
 
@@ -175,4 +180,55 @@ function setActive(activeBtn) {
 
   activeBtn.classList.remove("btn-outline");
   activeBtn.classList.add("btn-primary");
+}
+
+// Modal function 
+async function openIssueModal(id){
+
+  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+  const data = await res.json();
+
+  const issue = data.data;
+
+  document.getElementById("modalTitle").innerText = issue.title;
+
+  document.getElementById("modalIssueId").innerText = `#${issue.id}`;
+
+  const statusBadge = document.getElementById("modalStatusBadge");
+  const statusText = document.getElementById("modalStatusText");
+
+  if(issue.status === "open"){
+    statusBadge.innerText = "Opened";
+    statusBadge.className = "badge badge-success badge-sm";
+
+    statusText.innerText = "Opened";
+  } else {
+    statusBadge.innerText = "Closed";
+    statusBadge.className = "badge badge-secondary badge-sm";
+
+    statusText.innerText = "Closed";
+  }
+
+  document.getElementById("modalAuthor").innerText = issue.author;
+
+  document.getElementById("modalCreated").innerText =
+    new Date(issue.createdAt).toLocaleDateString();
+
+  document.getElementById("modalDescription").innerText = issue.description;
+
+  document.getElementById("modalAssignee").innerText =
+    issue.assignee || "Unassigned";
+
+  document.getElementById("modalPriority").innerText = issue.priority;
+
+  // Labels
+  const labelsContainer = document.getElementById("modalLabels");
+
+  labelsContainer.innerHTML = issue.labels
+    .map(label => `
+      <span class="badge uppercase badge-warning badge-sm">${label}</span>
+    `)
+    .join("");
+
+  document.getElementById("issueModal").showModal();
 }
