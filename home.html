@@ -125,7 +125,17 @@
 
 </section>
 
-<div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+<div class="container mx-auto mt-6">
+
+  <!-- Loading spinner -->
+  <div id="spinner" class="flex justify-center my-10 hidden">
+    <span class="loading loading-spinner loading-lg text-primary"></span>
+  </div>
+
+  <!-- Card Issue container -->
+  <div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+</div>
 
 
 <script src="./home.js"></script>

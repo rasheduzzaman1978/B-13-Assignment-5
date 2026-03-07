@@ -4,8 +4,20 @@ const closedTab = document.getElementById('closedTab');
 
 let allIssues = [];
 
+// Spinner functions
+function showSpinner(){
+  document.getElementById("spinner").classList.remove("hidden");
+}
+
+function hideSpinner(){
+  document.getElementById("spinner").classList.add("hidden");
+}
+
+
 // Load issues
 async function loadIssues() {
+
+  showSpinner();
 
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   const data = await res.json();
@@ -19,6 +31,8 @@ async function loadIssues() {
 
   document.getElementById("issueCount").innerText =
     `${allIssues.length} Issues`;
+
+  hideSpinner();
 }
 
 loadIssues();
@@ -27,6 +41,8 @@ loadIssues();
 // All tab
 allTab.addEventListener("click", () => {
 
+  showSpinner();
+
   setActive(allTab);
 
   displayIssues(allIssues);
@@ -34,11 +50,15 @@ allTab.addEventListener("click", () => {
   document.getElementById("issueCount").innerText =
     `${allIssues.length} Issues`;
 
+  hideSpinner();
+
 });
 
 
 // Open tab
 openTab.addEventListener("click", () => {
+
+  showSpinner();
 
   setActive(openTab);
 
@@ -49,11 +69,15 @@ openTab.addEventListener("click", () => {
   document.getElementById("issueCount").innerText =
     `${openIssues.length} Issues`;
 
+  hideSpinner();
+
 });
 
 
 // Closed tab
 closedTab.addEventListener("click", () => {
+
+  showSpinner();
 
   setActive(closedTab);
 
@@ -63,6 +87,8 @@ closedTab.addEventListener("click", () => {
 
   document.getElementById("issueCount").innerText =
     `${closedIssues.length} Issues`;
+
+  hideSpinner();
 
 });
 
@@ -89,19 +115,17 @@ function displayIssues(issues) {
         : `<i class="fa-regular fa-circle-check"></i>`
     }
   </div>
+
   <span class="badge uppercase ${
-  issue.priority === "high"
-    ? "text-red-600 bg-red-100"
-    : issue.priority === "medium"
-    ? "text-yellow-600 bg-yellow-100"
-    : "text-green-600 bg-green-100"
-}">
-  ${issue.priority}
-</span>
+    issue.priority === "high"
+      ? "text-red-600 bg-red-100"
+      : issue.priority === "medium"
+      ? "text-yellow-600 bg-yellow-100"
+      : "text-green-600 bg-green-100"
+  }">
+    ${issue.priority}
+  </span>
 </div>
-
-  
-
 
   <h2 class="font-semibold text-gray-800 mb-2">
     ${issue.title}
@@ -113,7 +137,7 @@ function displayIssues(issues) {
 
   <div class="flex flex-wrap gap-2 mb-3">
     ${issue.labels.map(label => `
-      <span class="badge badge-warning badge-sm">${label}</span>
+      <span class="badge uppercase badge-warning badge-sm">${label}</span>
     `).join("")}
   </div>
 
