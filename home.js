@@ -7,10 +7,12 @@ let allIssues = [];
 // Spinner functions
 function showSpinner(){
   document.getElementById("spinner").classList.remove("hidden");
+  document.getElementById("issuesContainer").classList.add("hidden");
 }
 
 function hideSpinner(){
   document.getElementById("spinner").classList.add("hidden");
+  document.getElementById("issuesContainer").classList.remove("hidden");
 }
 
 
@@ -24,7 +26,7 @@ async function loadIssues() {
 
   allIssues = data.data;
 
-  // 🔹 Initially All tab active
+  // Initially All tab active
   setActive(allTab);
 
   displayIssues(allIssues);
@@ -219,7 +221,18 @@ async function openIssueModal(id){
   document.getElementById("modalAssignee").innerText =
     issue.assignee || "Unassigned";
 
-  document.getElementById("modalPriority").innerText = issue.priority;
+  
+  // priority Color match 
+  const priorityEl = document.getElementById("modalPriority");
+
+priorityEl.innerText = issue.priority;
+
+priorityEl.className =
+  issue.priority === "high"
+    ? "badge uppercase text-red-600 bg-red-100"
+    : issue.priority === "medium"
+    ? "badge uppercase text-yellow-600 bg-yellow-100"
+    : "badge uppercase text-green-600 bg-green-100";
 
   // Labels
   const labelsContainer = document.getElementById("modalLabels");
@@ -232,3 +245,48 @@ async function openIssueModal(id){
 
   document.getElementById("issueModal").showModal();
 }
+
+// Search Function 
+const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
+
+searchBtn.addEventListener("click", searchIssues);
+
+async function searchIssues(){
+
+  const searchText = searchInput.value.trim();
+
+  if(!searchText){
+    alert("Please enter something to search");
+    return;
+  }
+
+  showSpinner();
+
+  const res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`
+  );
+
+  const data = await res.json();
+
+  const issues = data.data;
+
+  displayIssues(issues);
+
+  setActive(allTab);
+
+  document.getElementById("issueCount").innerText =
+    `${issues.length} Issues`;
+
+  hideSpinner();
+
+}
+
+// Press enter to work
+searchInput.addEventListener("keypress", function(e){
+
+  if(e.key === "Enter"){
+    searchIssues();
+  }
+
+});
