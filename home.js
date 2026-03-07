@@ -83,13 +83,24 @@ function displayIssues(issues) {
 
   <div class="flex justify-between items-center mb-2">
   <div class="${issue.status === "open" ? "text-green-600" : "text-purple-600"}">
-    <i class="fa-regular ${issue.status === "open" ? "fa-circle" : "fa-circle-check"}"></i>
+    ${
+      issue.status === "open"
+        ? `<i class="fa-regular fa-circle"></i>`
+        : `<i class="fa-regular fa-circle-check"></i>`
+    }
   </div>
-
-  <span class="badge badge-outline">
-      ${issue.priority}
-    </span>
+  <span class="badge uppercase ${
+  issue.priority === "high"
+    ? "text-red-600 bg-red-100"
+    : issue.priority === "medium"
+    ? "text-yellow-600 bg-yellow-100"
+    : "text-green-600 bg-green-100"
+}">
+  ${issue.priority}
+</span>
 </div>
+
+  
 
 
   <h2 class="font-semibold text-gray-800 mb-2">
