@@ -82,14 +82,15 @@ function displayIssues(issues) {
 <div class="card bg-white shadow-md border-t-4 ${issue.status === "open" ? "border-green-500" : "border-purple-500"} p-4">
 
   <div class="flex justify-between items-center mb-2">
-    <div class="${issue.status === "open" ? "text-green-600" : "text-purple-600"}">
-      <i class="fa-regular fa-circle"></i>
-    </div>
+  <div class="${issue.status === "open" ? "text-green-600" : "text-purple-600"}">
+    <i class="fa-regular ${issue.status === "open" ? "fa-circle" : "fa-circle-check"}"></i>
+  </div>
 
-    <span class="badge badge-outline">
+  <span class="badge badge-outline">
       ${issue.priority}
     </span>
-  </div>
+</div>
+
 
   <h2 class="font-semibold text-gray-800 mb-2">
     ${issue.title}
