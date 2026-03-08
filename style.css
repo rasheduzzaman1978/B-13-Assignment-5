@@ -4,3 +4,8 @@
 * {
   font-family: "Geist", sans-serif;
 }
+
+
+html {
+  overflow-y: scroll;
+}
