@@ -27,52 +27,53 @@
 
   <!-- Login form -->
   <section class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="card w-96 bg-white shadow-xl p-6">
+    <div class="card w-[320px] sm:w-[420px] md:w-[520px] bg-white shadow-xl p-6">
 
       <!-- Icon -->
-      <div class="text-center mb-4">
-        <i class="fa-brands fa-github text-5xl text-gray-700"></i>
+      <div class="flex justify-center items-center mb-4">
+        <img src="./assets/github-logo.png" alt="" class="h-20 md:h-25 w-20 md:w-25">
+        
       </div>
 
       <!-- Title -->
-      <h2 class="text-xl font-bold text-center">GitHub Issues Tracker</h2>
-      <p class="text-center text-gray-500 text-sm mb-4">
+      <h2 class="text-xl md:text-2xl font-semibold text-center">GitHub Issues Tracker</h2>
+      <p class="text-center text-gray-500 text-base mb-4">
         Sign in to manage your issues
       </p>
 
       <!-- Username -->
       <div class="form-control mb-3">
-        <label class="label text-sm">Username</label>
-        <input id="inputName" type="text" placeholder="Enter Username" class="input input-bordered w-full" />
-        <p class="text-xs text-blue-500 mt-1">Default: admin</p>
+        <label class="label text-base font-medium">Username</label>
+        <input id="inputName" type="text" placeholder="Enter Username" class="input input-bordered w-full text-base" />
+        <p class="text-sm text-blue-500 mt-1">Default: admin</p>
       </div>
 
       <!-- Password -->
       <div class="form-control mb-4">
-        <label class="label text-sm">Password</label>
+        <label class="label text-base font-medium">Password</label>
         <input 
             id="inputPassword" 
             type="password" 
             placeholder="Enter Password"
             autocomplete="new-password"
-            class="input input-bordered w-full"
+            class="input input-bordered w-full text-base"
           />
-        <p class="text-xs text-blue-500 mt-1">Default: admin123</p>
+        <p class="text-sm text-blue-500 mt-1">Default: admin123</p>
       </div>
 
       <!-- Button -->
-      <button id="signInBtn" class="btn w-full text-white border-none btn-primary">
+      <button id="signInBtn" class="btn w-full text-white border-none btn-primary text-base font-semibold">
         Sign In
       </button>
 
       <!-- Divider -->
-      <div class="divider text-xs">OR</div>
+      <div class="divider text-base">OR</div>
 
       <!-- Demo Credentials -->
-      <div class="bg-gray-100 rounded-lg p-3 text-sm text-center">
-        <p class="font-semibold mb-1">Demo Credentials:</p>
-        <p>Username: <span class="font-semibold">admin</span></p>
-        <p>Password: <span class="font-semibold">admin123</span></p>
+      <div class="bg-gray-100 rounded-lg p-3 text-center">
+        <p class="mb-1 text-sm ">Demo Credentials:</p>
+        <p>Username: <span class="font-semibold text-base">admin</span></p>
+        <p>Password: <span class="font-semibold text-base">admin123</span></p>
       </div>
 
     </div>
