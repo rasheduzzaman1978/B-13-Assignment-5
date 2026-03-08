@@ -32,8 +32,8 @@
 
       <!-- Left Side -->
       <div class="w-full md:flex-1">
-        <a class="flex items-center gap-2 text-lg font-semibold">
-          <i class="fa-brands fa-github text-xl"></i>
+        <a class="flex items-center gap-2 text-lg md:text-2xl font-semibold">
+          <i class="fa-brands fa-github text-xl md:text-3xl"></i>
           GitHub Issues Tracker
         </a>
       </div>
@@ -46,12 +46,12 @@
 
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-50"></i>
 
-          <input id="searchInput" type="text" placeholder="Search issues..." class="input input-sm input-bordered pl-9 w-full md:w-56" />
+          <input id="searchInput" type="text" placeholder="Search issues..." class="input input-sm input-bordered pl-9 text-sm md:text-base w-full md:w-56" />
 
         </div>
 
         <!-- Search Button -->
-        <button id="searchBtn" class="btn btn-sm btn-primary text-white border-none">
+        <button id="searchBtn" class="btn btn-sm btn-primary text-white text-sm md:text-base font-semibold border-none">
           Search
         </button>
 
@@ -66,15 +66,15 @@
 
     <div class="flex gap-2 bg-base-200 p-1 rounded-lg w-fit">
 
-      <button id="allTab" class="btn btn-sm px-10 btn-primary">
+      <button id="allTab" class="btn btn-sm px-10 btn-primary text-sm md:text-base font-semibold">
         All
       </button>
 
-      <button id="openTab" class="btn btn-sm btn-outline">
+      <button id="openTab" class="btn btn-sm btn-outline text-sm md:text-base font-medium">
         Open
       </button>
 
-      <button id="closedTab" class="btn btn-sm btn-outline">
+      <button id="closedTab" class="btn btn-sm btn-outline text-sm md:text-base font-medium">
         Closed
       </button>
 
@@ -96,10 +96,10 @@
       </div>
 
       <div>
-        <h2 id="issueCount" class="font-semibold text-lg">
+        <h2 id="issueCount" class="font-semibold text-lg md:text-xl">
           50 Issues
         </h2>
-        <p class="text-sm text-gray-500">
+        <p class="text-sm md:text-base text-gray-500">
           Track and manage your project issues
         </p>
       </div>
@@ -107,7 +107,7 @@
     </div>
 
     <!-- Right Side -->
-    <div class="flex items-center gap-5 text-sm">
+    <div class="flex items-center gap-5 text-sm md:text-base font-medium">
 
       <div class="flex items-center gap-1">
         <span class="w-2.5 h-2.5 bg-green-500 rounded-full"></span>

@@ -2,39 +2,70 @@ const allTab = document.getElementById('allTab');
 const openTab = document.getElementById('openTab');
 const closedTab = document.getElementById('closedTab');
 
+const issueCount = document.getElementById('issueCount');
+
+const modalTitle = document.getElementById("modalTitle");
+const modalIssueId = document.getElementById("modalIssueId");
+const modalStatusBadge = document.getElementById("modalStatusBadge");
+const modalStatusText = document.getElementById("modalStatusText");
+
+const spinner = document.getElementById("spinner");
+const issuesContainer = document.getElementById("issuesContainer");
+
+
+const modalAuthor = document.getElementById("modalAuthor");
+const modalCreated = document.getElementById("modalCreated");
+const modalDescription = document.getElementById("modalDescription");
+const modalAssignee = document.getElementById("modalAssignee");
+const modalPriority = document.getElementById("modalPriority");
+const modalLabels = document.getElementById("modalLabels");
+
 let allIssues = [];
 
 // Spinner functions
 function showSpinner(){
-  document.getElementById("spinner").classList.remove("hidden");
-  document.getElementById("issuesContainer").classList.add("hidden");
+  spinner.classList.remove("hidden");
+  issuesContainer.classList.add("hidden");
 }
 
 function hideSpinner(){
-  document.getElementById("spinner").classList.add("hidden");
-  document.getElementById("issuesContainer").classList.remove("hidden");
+  spinner.classList.add("hidden");
+  issuesContainer.classList.remove("hidden");
 }
 
+// Issue Count helper function 
+function updateIssueCount(count){
+  issueCount.innerText = `${count} Issues`;
+}
 
 // Load issues
 async function loadIssues() {
 
-  showSpinner();
+  try {
 
-  const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-  const data = await res.json();
+    showSpinner();
 
-  allIssues = data.data;
+    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+    const data = await res.json();
 
-  // Initially All tab active
-  setActive(allTab);
+    allIssues = data?.data || [];
 
-  displayIssues(allIssues);
+    setActive(allTab);
 
-  document.getElementById("issueCount").innerText =
-    `${allIssues.length} Issues`;
+    displayIssues(allIssues);
 
-  hideSpinner();
+    updateIssueCount(allIssues.length);
+
+  } catch (error) {
+
+    console.error(error);
+    alert("Failed to load issues");
+
+  } finally {
+
+    hideSpinner();
+
+  }
 }
 
 loadIssues();
@@ -43,24 +74,19 @@ loadIssues();
 // All tab
 allTab.addEventListener("click", () => {
 
-  showSpinner();
-
+  
   setActive(allTab);
 
   displayIssues(allIssues);
 
-  document.getElementById("issueCount").innerText =
-    `${allIssues.length} Issues`;
+  updateIssueCount(allIssues.length);
 
-  hideSpinner();
-
+  
 });
 
 
 // Open tab
 openTab.addEventListener("click", () => {
-
-  showSpinner();
 
   setActive(openTab);
 
@@ -68,39 +94,37 @@ openTab.addEventListener("click", () => {
 
   displayIssues(openIssues);
 
-  document.getElementById("issueCount").innerText =
-    `${openIssues.length} Issues`;
+  updateIssueCount(openIssues.length);
 
-  hideSpinner();
-
-});
+  });
 
 
 // Closed tab
 closedTab.addEventListener("click", () => {
 
-  showSpinner();
-
-  setActive(closedTab);
+ setActive(closedTab);
 
   const closedIssues = allIssues.filter(issue => issue.status === "closed");
 
   displayIssues(closedIssues);
 
-  document.getElementById("issueCount").innerText =
-    `${closedIssues.length} Issues`;
+  updateIssueCount(closedIssues.length);
 
-  hideSpinner();
-
-});
+ });
 
 
 // Display issues
 function displayIssues(issues) {
 
-  const container = document.getElementById('issuesContainer');
+  issuesContainer.innerHTML = "";
 
-  container.innerHTML = "";
+  if (issues.length === 0) {
+    issuesContainer.innerHTML = `
+      <p class="text-center col-span-full text-gray-500">
+        No issues found
+      </p>`;
+    return;
+  }
 
   issues.forEach(issue => {
 
@@ -138,7 +162,7 @@ function displayIssues(issues) {
   </p>
 
   <div class="flex flex-wrap gap-2 mb-3">
-    ${issue.labels.map(label => `
+    ${(issue.labels || []).map(label => `
       <span class="badge uppercase badge-warning badge-sm">${label}</span>
     `).join("")}
   </div>
@@ -163,7 +187,7 @@ function displayIssues(issues) {
     });
 
 
-    container.appendChild(div);
+    issuesContainer.appendChild(div);
 
   });
 }
@@ -187,47 +211,46 @@ function setActive(activeBtn) {
 // Modal function 
 async function openIssueModal(id){
 
-  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
-  const data = await res.json();
+  try{
 
-  const issue = data.data;
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+    const data = await res.json();
 
-  document.getElementById("modalTitle").innerText = issue.title;
+    const issue = data?.data || [];
 
-  document.getElementById("modalIssueId").innerText = `#${issue.id}`;
+  modalTitle.innerText = issue.title;
 
-  const statusBadge = document.getElementById("modalStatusBadge");
-  const statusText = document.getElementById("modalStatusText");
+  modalIssueId.innerText = `#${issue.id}`;
 
+  
   if(issue.status === "open"){
-    statusBadge.innerText = "Opened";
-    statusBadge.className = "badge badge-success badge-sm";
+    modalStatusBadge.innerText = "Opened";
+    modalStatusBadge.className = "badge badge-success badge-sm";
 
-    statusText.innerText = "Opened";
+    modalStatusText.innerText = "Opened";
   } else {
-    statusBadge.innerText = "Closed";
-    statusBadge.className = "badge badge-secondary badge-sm";
+    modalStatusBadge.innerText = "Closed";
+    modalStatusBadge.className = "badge badge-secondary badge-sm";
 
-    statusText.innerText = "Closed";
+    modalStatusText.innerText = "Closed";
   }
 
-  document.getElementById("modalAuthor").innerText = issue.author;
+  modalAuthor.innerText = issue.author;
 
-  document.getElementById("modalCreated").innerText =
+  modalCreated.innerText =
     new Date(issue.createdAt).toLocaleDateString();
 
-  document.getElementById("modalDescription").innerText = issue.description;
+  modalDescription.innerText = issue.description;
 
-  document.getElementById("modalAssignee").innerText =
+  modalAssignee.innerText =
     issue.assignee || "Unassigned";
 
   
   // priority Color match 
-  const priorityEl = document.getElementById("modalPriority");
+  
+modalPriority.innerText = issue.priority;
 
-priorityEl.innerText = issue.priority;
-
-priorityEl.className =
+modalPriority.className =
   issue.priority === "high"
     ? "badge uppercase text-red-600 bg-red-100"
     : issue.priority === "medium"
@@ -235,15 +258,20 @@ priorityEl.className =
     : "badge uppercase text-green-600 bg-green-100";
 
   // Labels
-  const labelsContainer = document.getElementById("modalLabels");
-
-  labelsContainer.innerHTML = issue.labels
+  
+  modalLabels.innerHTML = (issue.labels || [])
     .map(label => `
       <span class="badge uppercase badge-warning badge-sm">${label}</span>
     `)
     .join("");
 
   document.getElementById("issueModal").showModal();
+} catch(err){
+
+    alert("Failed to load issue details");
+
+  }
+
 }
 
 // Search Function 
@@ -261,29 +289,39 @@ async function searchIssues(){
     return;
   }
 
-  showSpinner();
+  try{
 
-  const res = await fetch(
-    `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`
-  );
+    showSpinner();
 
-  const data = await res.json();
+    const res = await fetch(
+      `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`
+    );
 
-  const issues = data.data;
+    const data = await res.json();
 
-  displayIssues(issues);
+    const issues = data?.data || [];
 
-  setActive(allTab);
+    displayIssues(issues);
 
-  document.getElementById("issueCount").innerText =
-    `${issues.length} Issues`;
+    setActive(allTab);
 
-  hideSpinner();
+    updateIssueCount(issues.length);
+
+  }catch(err){
+
+    alert("Search failed");
+
+  }finally{
+
+    hideSpinner();
+
+  }
 
 }
 
+
 // Press enter to work
-searchInput.addEventListener("keypress", function(e){
+searchInput.addEventListener("keydown", function(e){
 
   if(e.key === "Enter"){
     searchIssues();
